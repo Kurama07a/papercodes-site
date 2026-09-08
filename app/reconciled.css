@@ -49,8 +49,11 @@ body:has(main > .hero) .desktop-nav::before {
   isolation: isolate;
   display: grid;
   grid-template-columns: 45% 55%;
-  min-height: 0;
-  height: clamp(720px, 60vw, 940px);
+  /* A minimum, not a fixed height: `overflow: hidden` below is what keeps the
+     torn collage inside the hero box, and with a fixed height it clipped the
+     proposition's own call to action at every desktop width. The composition
+     holds its intended proportions and grows only when the copy needs it. */
+  min-height: clamp(720px, 60vw, 940px);
   overflow: hidden;
   background-color: var(--paper);
   background-image: url('/images/paper-texture.webp');
@@ -255,7 +258,7 @@ body:has(main > .hero) .desktop-nav::before {
 .site-footer__inner { min-height: 72px; }
 .mobile-nav:not([open]) .mobile-nav__panel { display: none; }
 @media (max-width: 1100px) and (min-width: 761px) {
-  .hero { height: 700px; }
+  .hero { min-height: 700px; }
   .hero h1 { font-size: 8.65vw; }
   .workflow { left: 12%; right: 3%; gap: 16px; }
   .workflow__stage { min-height: 156px; padding: 8px 5px; }
