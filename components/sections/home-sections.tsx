@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { InView, Reveal, RevealGroup } from "@/components/motion/reveal";
+import { STAGGER } from "@/components/motion/motion-tokens";
 import { capabilities } from "@/data/capabilities";
 import { projectLogs } from "@/data/projects";
 
@@ -25,34 +27,59 @@ const projectVisualTitles = [
 export function ChaosSystemSection() {
   return (
     <section className="chaos-system" aria-labelledby="chaos-title">
+      {/*
+        The dossier field assembles the way a desk fills up: the note is marked
+        first, then the fragments are filed one by one, then the reply lands on
+        top. Every scrap is rotated in CSS, so these reveals move `clip-path`
+        only and leave those transforms alone.
+      */}
       <div className="chaos-system__field">
-        <p className="hand-note">Chaos lives<br />everywhere.</p>
-        <div className="fragment-list" aria-label="Examples of fragmented work">
-          <span>Leads in DMs</span>
-          <span>Data in spreadsheets</span>
-          <span>Follow-ups in someone&apos;s head</span>
-          <span>Tools that don&apos;t talk</span>
-          <span>Opportunities lost</span>
-        </div>
-        <p className="paper-note">It doesn&apos;t<br />have to be<br />this way.</p>
+        <Reveal as="p" kind="mark" amount={0.5} className="hand-note">
+          Chaos lives<br />everywhere.
+        </Reveal>
+        <RevealGroup
+          className="fragment-list"
+          aria-label="Examples of fragmented work"
+          stagger={STAGGER.loose}
+          delay={0.25}
+          amount={0.4}
+        >
+          <Reveal as="span" kind="mark" child>Leads in DMs</Reveal>
+          <Reveal as="span" kind="mark" child>Data in spreadsheets</Reveal>
+          <Reveal as="span" kind="mark" child>Follow-ups in someone&apos;s head</Reveal>
+          <Reveal as="span" kind="mark" child>Tools that don&apos;t talk</Reveal>
+          <Reveal as="span" kind="mark" child>Opportunities lost</Reveal>
+        </RevealGroup>
+        <Reveal as="p" kind="mark" delay={0.85} amount={0.4} className="paper-note">
+          It doesn&apos;t<br />have to be<br />this way.
+        </Reveal>
       </div>
 
-      <div className="chaos-system__statement">
-        <h2 id="chaos-title">We turn disconnected tools into a <em>single, intelligent system.</em></h2>
-        <p>Same people. Less friction. A more capable business.</p>
-      </div>
+      {/* InView drives the red rule in `::after`, which Framer cannot reach. */}
+      <InView className="chaos-system__statement" amount={0.5}>
+        <Reveal as="h2" kind="press" id="chaos-title">
+          We turn disconnected tools into a <em>single, intelligent system.</em>
+        </Reveal>
+        <Reveal as="p" kind="rise" delay={0.45}>
+          Same people. Less friction. A more capable business.
+        </Reveal>
+      </InView>
 
       <div className="stack-spread">
-        <div className="architecture-stack">
-          <p className="architecture-stack__name">The PaperCodes stack</p>
+        <RevealGroup className="architecture-stack" stagger={STAGGER.base} amount={0.35}>
+          <Reveal as="p" kind="mark" child className="architecture-stack__name">
+            The PaperCodes stack
+          </Reveal>
           {architecture.map((layer) => (
-            <details key={layer.index}>
+            <Reveal as="details" kind="mark" child key={layer.index}>
               <summary><span>{layer.index}</span><strong>{layer.title}</strong><small>{layer.detail}</small><i aria-hidden="true" /></summary>
               <p>{layer.body}</p>
-            </details>
+            </Reveal>
           ))}
-        </div>
-        <p className="stack-spread__aside">Four<br />layers.<br />One<br />system.</p>
+        </RevealGroup>
+        <Reveal as="p" kind="mark" delay={0.35} className="stack-spread__aside">
+          Four<br />layers.<br />One<br />system.
+        </Reveal>
       </div>
     </section>
   );
@@ -87,14 +114,23 @@ export function EvidenceSection() {
   return (
     <section className="evidence-section" aria-labelledby="evidence-title">
       <div className="evidence-section__intro">
-        <h2 id="evidence-title">Concept<br /><em>logs.</em></h2>
-        <p>Possible builds.<br />Connected systems.<br />Ideas made concrete.</p>
+        <Reveal as="h2" kind="mark" id="evidence-title" amount={0.5}>
+          Concept<br /><em>logs.</em>
+        </Reveal>
+        <Reveal as="p" kind="rise" delay={0.2}>
+          Possible builds.<br />Connected systems.<br />Ideas made concrete.
+        </Reveal>
         <Link className="text-arrow" href="/work">View all logs <span aria-hidden="true">→</span></Link>
       </div>
 
-      <div className="project-logs">
+      {/*
+        Logs are dealt out in order. Their concept flows then light up on
+        inspection — see the `.concept-flow` rules in motion.css. That is
+        colour only; every step already reads without hovering.
+      */}
+      <RevealGroup className="project-logs" stagger={STAGGER.loose} amount={0.2}>
         {projectLogs.map((project, index) => (
-          <article className="project-log" key={project.id}>
+          <Reveal as="article" kind="rise" child className="project-log" key={project.id}>
             <div className="project-log__meta">
               <span>{project.id}</span>
               <strong>{project.status}</strong>
@@ -113,9 +149,9 @@ export function EvidenceSection() {
               <div><dt>Connected layers</dt><dd>{project.category}</dd></div>
             </dl>
             <small className="project-log__disclaimer">Concept exploration, not a client result</small>
-          </article>
+          </Reveal>
         ))}
-      </div>
+      </RevealGroup>
     </section>
   );
 }
@@ -158,26 +194,37 @@ export function EthosSection() {
   return (
     <section className="ethos-section" aria-labelledby="ethos-title">
       <div className="ethos-section__dark ethos-section__dark--left">
-        <p className="hand-note hand-note--light">Same spirit.<br />Different form.</p>
-        <ul>
-          <li>Challenge</li>
-          <li>Reinvent</li>
-          <li>Fuse</li>
-          <li>Iterate</li>
-          <li>Stay curious</li>
-          <li>Keep going</li>
-        </ul>
+        <Reveal as="p" kind="mark" className="hand-note hand-note--light" amount={0.5}>
+          Same spirit.<br />Different form.
+        </Reveal>
+        <RevealGroup as="ul" stagger={STAGGER.tight} delay={0.3} amount={0.4}>
+          <Reveal as="li" kind="mark" child>Challenge</Reveal>
+          <Reveal as="li" kind="mark" child>Reinvent</Reveal>
+          <Reveal as="li" kind="mark" child>Fuse</Reveal>
+          <Reveal as="li" kind="mark" child>Iterate</Reveal>
+          <Reveal as="li" kind="mark" child>Stay curious</Reveal>
+          <Reveal as="li" kind="mark" child>Keep going</Reveal>
+        </RevealGroup>
       </div>
 
-      <div className="ethos-section__paper">
-        <h2 id="ethos-title">Built to<br />evolve.</h2>
-        <p>We don&apos;t believe in one-size-fits-all systems. Every business is different. So is every build. We question defaults, adapt quickly, and keep rebuilding what can be better.</p>
+      {/* InView drives the struck red underline the headline carries in `::after`. */}
+      <InView className="ethos-section__paper" amount={0.45}>
+        <Reveal as="h2" kind="press" id="ethos-title">
+          Built to<br />evolve.
+        </Reveal>
+        <Reveal as="p" kind="rise" delay={0.35}>
+          We don&apos;t believe in one-size-fits-all systems. Every business is different. So is every build. We question defaults, adapt quickly, and keep rebuilding what can be better.
+        </Reveal>
         <Link className="project-link" href="/approach">Our approach <span aria-hidden="true">→</span></Link>
-      </div>
+      </InView>
 
       <div className="ethos-section__dark ethos-section__dark--right">
-        <p>Today, a website.<br />Tomorrow, an agent.<br />Next, something without a category yet.</p>
-        <strong>Better systems for a brighter tomorrow.</strong>
+        <Reveal as="p" kind="mark" amount={0.4}>
+          Today, a website.<br />Tomorrow, an agent.<br />Next, something without a category yet.
+        </Reveal>
+        <Reveal as="strong" kind="mark" delay={0.3} amount={0.4}>
+          Better systems for a brighter tomorrow.
+        </Reveal>
       </div>
     </section>
   );

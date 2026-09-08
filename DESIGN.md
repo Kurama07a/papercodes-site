@@ -141,7 +141,7 @@ PaperCodes is an editorial-industrial agency world for growth-stage operators: a
 
 The shipped Stage 2 homepage follows a high-variance, medium-density 9/3/5 direction with restrained static motion. Its visual rhythm moves between full-height splits, 4/3/5 dossier fields, 12-column technical spreads, indexes, evidence plates, triptychs, and a dark closing field. Rotation, overlap, tonal paper layers, grid lines, and red signals create tension without animated spectacle.
 
-Stage 2 is a complete static narrative: hero and tool band; chaos-to-system transformation; four-layer architecture; capabilities index; clearly illustrative concept evidence; surface-versus-engine demonstration; ethos triptych; process loop; and closing project invitation. Generated photography, collage imagery, real torn-paper assets, and richer motion or reveal interactions remain explicitly deferred to Stage 3 and later.
+Stage 2 is a complete static narrative: hero and tool band; chaos-to-system transformation; four-layer architecture; capabilities index; clearly illustrative concept evidence; surface-versus-engine demonstration; ethos triptych; process loop; and closing project invitation. Stage 3 layers motion over that narrative without changing it; see **Motion** below. The interactive drag reveal for the experience-versus-engine demonstration remains deferred.
 
 **Key Characteristics:**
 
@@ -149,6 +149,7 @@ Stage 2 is a complete static narrative: hero and tool band; chaos-to-system tran
 - Monumental editorial serif paired with dense, inspectable technical mono.
 - High composition variance held together by repeated 12-column alignment and one-pixel rules.
 - Static dossier tension from rotation, overlap, grids, offset notes, and alternating light/dark fields.
+- Mechanical motion that reveals the composition into place and then rests.
 - Square geometry, compact data labels, typed illustrative evidence, and direct operational language.
 - Responsive reflow that preserves narrative order instead of shrinking desktop compositions.
 
@@ -239,13 +240,45 @@ At 56rem and below, desktop navigation becomes a full-viewport dark menu and all
 
 The system uses no box shadows. Depth is structural and tonal: overlapping rotated paper fields, close neutral layers, one-pixel borders, hard light/dark transitions, and faint 3rem technical grids. The chaos field's offsets and notes imply a dossier without claiming the generated collage or torn-paper assets that remain deferred.
 
-Motion is deliberately restrained in Stage 2. The page is static at rest; only short underline, fill-inversion, and one-pixel press transitions communicate interactive state. Reduced-motion preference effectively removes those transitions and smooth scrolling.
+Motion is deliberately restrained. The page is static at rest and the Stage 3 motion layer preserves that: reveals play once, the engine's execution signal returns to an idle state between runs, and no composition depends on animation to be readable. See **Motion**.
 
 ### Named Rules
 
 **The Flat-but-Layered Rule.** Build depth with overlap, tone, and ruled boundaries—not shadows, blur, glass, or floating cards.
 
-**The Static Dossier Rule.** Rotation and offset may imply physical energy, but richer animation and reveal behavior belong to a later motion stage.
+**The Static Dossier Rule.** Rotation and offset carry the physical energy. Motion reveals a composition into place and then stops; it never becomes the composition.
+
+## Motion
+
+Stage 3 adds motion to the Stage 2 composition. It is implemented with Framer Motion (the `motion` package) for element and state animation, and with CSS for anything living in a pseudo-element. Motion is presentation only: the page is complete, legible, and navigable with every animation removed.
+
+**Character:** precise, mechanical, slightly raw. Curves decelerate hard and stop — no springs, no overshoot, no bounce. Tokens live in `components/motion/motion-tokens.ts`.
+
+### Vocabulary
+
+- **Press:** a `clip-path` sweep from top to bottom, no fade. Type meeting paper. Used for the hero proposition, section headlines, and route titles.
+- **Mark:** a fast left-to-right `clip-path` wipe, like a marker stroke. Used for annotations, notes, labels, and index rows.
+- **Plate:** a `clip-path` wipe from the leading edge, for dark engine panels.
+- **Rise:** a short opacity-and-offset move, held in reserve for untransformed body copy.
+- **Rule:** a one-pixel line drawing from its leading edge.
+
+`press`, `mark`, and `plate` animate `clip-path` alone, because most annotations and collage scraps carry a static CSS `transform: rotate(...)` that a transform-based reveal would silently drop. For the same reason scroll drift is applied through the separate `translate` property, which composes with `transform` rather than replacing it.
+
+### Behaviors
+
+- **Hero:** the proposition is stamped on line by line, then the description, actions, and margin note follow. The collage plane settles, the schematic rules draw themselves, and scroll drift moves the collage layers 4–12px.
+- **Engine execution signal:** the four workflow stages activate in order. The active stage takes a red border and its nodes tick red in sequence; the connector leaving a completed stage fills with red. The signal rests, then repeats. It stops entirely off screen.
+- **Dossier field:** the note is marked, the fragments are filed one at a time, then the reply lands on top.
+- **Architecture stack:** layers are laid down in sequence; the open layer carries the signal, and the native `<details>` panel is height-animated where the browser supports it.
+- **Evidence logs:** logs are dealt out in order; a log's concept flow lights up on inspection. That is colour only — every step reads without hovering.
+
+### Named Rules
+
+**The Meaningful Motion Rule.** Motion must communicate reveal, execution, routing, transformation, hierarchy, or system state. A generic fade-up is not a reason.
+
+**The Rest Rule.** Every sequence ends. Reveals play once, and the only repeating motion is the engine's execution signal and the closing status caret — both of which report live system state.
+
+**The Removable Motion Rule.** No content, control, or meaning may depend on animation. Reduced-motion preference cancels every reveal and loop from first paint, and the page renders complete without JavaScript.
 
 ## Shapes
 
@@ -339,4 +372,5 @@ Static rotations are reserved for the chaos field's annotations and layered scra
 - **Don't** substitute a logo font, emoji, or improvised glyph where a shipped Simple Icon exists.
 - **Don't** present illustrative concept metrics as verified client results.
 - **Don't** describe generated photography, photographic collage, irregular raster tears, or torn-paper assets as shipped in Stage 2.
-- **Don't** describe scroll choreography, animated tears, parallax, drag reveals, or richer motion as implemented; those remain Stage 3+ work.
+- **Don't** add motion that merely decorates. Every animation must show reveal, execution, routing, transformation, or system state.
+- **Don't** describe animated tears or the experience-versus-engine drag reveal as implemented; those remain deferred.

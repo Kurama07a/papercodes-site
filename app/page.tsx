@@ -7,6 +7,8 @@ import {
   EthosSection,
   EvidenceSection,
 } from "@/components/sections/home-sections";
+import { HeroArt } from "@/components/motion/hero-art";
+import { Reveal, RevealGroup } from "@/components/motion/reveal";
 import { ToolLogo } from "@/components/ui/tool-logo";
 
 const tools = ["Stripe", "Notion", "Make", "n8n", "OpenAI", "Supabase", "Vercel"];
@@ -15,7 +17,7 @@ export default function Home() {
   return (
     <main id="main-content">
       <section className="hero" aria-labelledby="hero-title">
-        <div className="hero__engine-art" aria-hidden="true">
+        <HeroArt>
           <Image className="hero__engine-photo hero__engine-photo--structure" src="/images/ethos-collage.webp" alt="" fill sizes="70vw" />
           <Image className="hero__engine-photo hero__engine-photo--documents" src="/images/chaos-collage.webp" alt="" fill sizes="35vw" />
           <Image className="hero__engine-photo hero__engine-photo--figure" src="/images/ethos-collage.webp" alt="" fill sizes="24vw" />
@@ -24,28 +26,41 @@ export default function Home() {
             <span>Same chaos.<br />Different system.</span>
           </div>
           <div className="hero__schematic"><i /><i /><i /><i /><b /></div>
-        </div>
+        </HeroArt>
         <Image className="hero__collage" src="/images/hero-tear-sealed.png" alt="" fill sizes="100vw" preload />
         <div className="hero__paper-blend" aria-hidden="true" />
         <div className="hero__copy">
-          <p className="margin-note" aria-hidden="true">
+          {/*
+            The proposition is stamped on line by line rather than faded in:
+            each line's clip sweeps top to bottom, so the headline reads as
+            type meeting paper.
+          */}
+          <Reveal as="p" kind="mark" trigger="mount" delay={0.62} className="margin-note" aria-hidden="true">
             Ideas<br />Processes<br />People<br />Potential
-          </p>
+          </Reveal>
           <h1 id="hero-title">
-            <span className="hero__visible"><span>Design</span><span>what they</span><span>see.</span></span>
-            <em>Automate<br />what they<br />don&apos;t.</em>
+            <span className="hero__visible">
+              <Reveal as="span" kind="press" trigger="mount" delay={0.05}>Design</Reveal>
+              <Reveal as="span" kind="press" trigger="mount" delay={0.14}>what they</Reveal>
+              <Reveal as="span" kind="press" trigger="mount" delay={0.23}>see.</Reveal>
+            </span>
+            <em>
+              <Reveal as="span" kind="press" trigger="mount" delay={0.36}>Automate</Reveal>
+              <Reveal as="span" kind="press" trigger="mount" delay={0.43}>what they</Reveal>
+              <Reveal as="span" kind="press" trigger="mount" delay={0.5}>don&apos;t.</Reveal>
+            </em>
           </h1>
-          <p className="hero__description">
+          <Reveal as="p" kind="rise" trigger="mount" delay={0.66} className="hero__description">
             Websites. Workflows. Agents.<br />Custom tools. Connected systems.<br />For businesses that refuse to stay the same.
-          </p>
-          <div className="hero__actions">
+          </Reveal>
+          <Reveal kind="rise" trigger="mount" delay={0.76} className="hero__actions">
             <Link className="project-link project-link--dark" href="/start-project">
               Start a project <span aria-hidden="true">→</span>
             </Link>
             <Link className="text-link" href="/approach">
               Our approach <span aria-hidden="true">→</span>
             </Link>
-          </div>
+          </Reveal>
         </div>
 
         <div className="hero__system">
@@ -55,14 +70,14 @@ export default function Home() {
 
       <section className="tool-band" aria-label="Tools PaperCodes builds with and connects to">
         <div className="tool-band__main">
-          <p>Built with / connected to</p>
-          <ul>
+          <Reveal as="p" kind="mark">Built with / connected to</Reveal>
+          <RevealGroup as="ul" stagger={0.05} amount={0.5}>
             {tools.map((tool) => (
-              <li key={tool}><ToolLogo name={tool} /></li>
+              <Reveal as="li" kind="rise" child key={tool}><ToolLogo name={tool} /></Reveal>
             ))}
-          </ul>
+          </RevealGroup>
         </div>
-        <p className="tool-band__note">Tools are means.<br />Outcomes are the point.</p>
+        <Reveal as="p" kind="mark" delay={0.2} className="tool-band__note">Tools are means.<br />Outcomes are the point.</Reveal>
       </section>
 
       <ChaosSystemSection />

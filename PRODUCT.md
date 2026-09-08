@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Next.js App Router with TypeScript, semantic HTML, custom CSS, SVG for diagrams, and GSAP only where later motion work requires it. This stack is specified in `Prompt.md`.
+Next.js App Router with TypeScript, semantic HTML, custom CSS, and SVG for diagrams. `Prompt.md` specifies this stack and names GSAP for motion; the motion stage was built with Framer Motion (the `motion` package) instead, which composes with React state and the existing server components without a separate imperative timeline. CSS carries any motion that lives in a pseudo-element.
 
 ## Users
 

@@ -1,0 +1,384 @@
+/* ==========================================================================
+   Motion layer.
+
+   Everything here is presentation on top of a page that already reads
+   correctly at rest. Two guards keep that true:
+
+   1. `html:not([data-js="on"])` — the inline script in the layout sets that
+      attribute before first paint, so without JavaScript every reveal's
+      hidden state is cancelled and nothing is ever stuck invisible.
+   2. `prefers-reduced-motion: reduce` — cancels the same hidden states from
+      first paint, which `MotionConfig` alone cannot do for `clip-path`.
+   ========================================================================== */
+
+:root {
+  --ease-press: cubic-bezier(0.16, 0.84, 0.24, 1);
+  --ease-mark: cubic-bezier(0.33, 0, 0.12, 1);
+  --ease-step: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --------------------------------------------------------------------------
+   Guards
+   -------------------------------------------------------------------------- */
+
+html:not([data-js="on"]) [data-reveal] {
+  clip-path: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    clip-path: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Any keyframe declared below is decoration; none of it carries meaning. */
+  [data-js="on"] *,
+  [data-js="on"] *::before,
+  [data-js="on"] *::after {
+    animation: none !important;
+  }
+
+  .hero__engine-photo,
+  .hero__red-fragment,
+  .hero__schematic {
+    translate: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Hero — settle on load, then a restrained scroll drift
+   -------------------------------------------------------------------------- */
+
+@keyframes pc-plane-settle {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pc-collage-settle {
+  from { transform: scale(1.028); }
+  to { transform: scale(1); }
+}
+
+@keyframes pc-draw-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes pc-mark-in {
+  from { clip-path: inset(0 101% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+[data-js="on"] .hero::after,
+[data-js="on"] .hero__engine-art {
+  animation: pc-plane-settle 900ms var(--ease-press) both;
+}
+
+[data-js="on"] .hero__collage {
+  animation: pc-collage-settle 1100ms var(--ease-press) both;
+  transform-origin: 62% 40%;
+}
+
+/* Scroll drift. `translate` is used deliberately so it composes with the
+   static `transform: rotate(...)` the art direction sets on these layers. */
+[data-js="on"] .hero__engine-photo--structure {
+  translate: 0 calc(var(--pc-drift, 0) * 1px);
+}
+
+[data-js="on"] .hero__engine-photo--documents {
+  translate: 0 calc(var(--pc-drift, 0) * -0.55px);
+}
+
+[data-js="on"] .hero__engine-photo--figure {
+  translate: 0 calc(var(--pc-drift, 0) * 0.65px);
+}
+
+[data-js="on"] .hero__red-fragment {
+  translate: 0 calc(var(--pc-drift, 0) * -0.8px);
+}
+
+[data-js="on"] .hero__schematic {
+  translate: 0 calc(var(--pc-drift, 0) * 0.4px);
+}
+
+/* The schematic rules draw themselves rather than appearing. */
+[data-js="on"] .hero__schematic i {
+  animation: pc-draw-x 620ms var(--ease-mark) both;
+  transform-origin: left center;
+}
+
+[data-js="on"] .hero__schematic i:nth-child(1) { animation-delay: 720ms; }
+[data-js="on"] .hero__schematic i:nth-child(2) { animation-delay: 830ms; }
+[data-js="on"] .hero__schematic i:nth-child(3) { animation-delay: 940ms; }
+[data-js="on"] .hero__schematic i:nth-child(4) { animation-delay: 1050ms; }
+
+[data-js="on"] .hero__schematic b {
+  animation: pc-plane-settle 200ms steps(2, end) 1160ms both;
+}
+
+/* The annotation's red underline is struck after the words land. */
+[data-js="on"] .engine-annotation::after {
+  animation: pc-draw-x 320ms var(--ease-mark) 260ms both;
+  transform-origin: left center;
+}
+
+/* --------------------------------------------------------------------------
+   Hero engine — the execution signal
+   `data-state` is written by HeroWorkflow: idle | active | done.
+   -------------------------------------------------------------------------- */
+
+[data-js="on"] .workflow__stage {
+  transition:
+    border-color 260ms var(--ease-step),
+    background-color 260ms var(--ease-step);
+}
+
+[data-js="on"] .workflow__stage[data-state="active"] {
+  border-color: rgb(213 43 43 / 85%);
+  background: rgb(20 12 12 / 96%);
+}
+
+[data-js="on"] .workflow__stage[data-state="done"] {
+  border-color: rgb(213 43 43 / 32%);
+}
+
+[data-js="on"] .workflow__heading {
+  transition: border-color 260ms var(--ease-step);
+}
+
+[data-js="on"] .workflow__stage[data-state="active"] .workflow__heading {
+  border-bottom-color: var(--signal);
+}
+
+/* The connector becomes a 1px plate so the signal can fill it left to right.
+   As a border it had no box to paint into. */
+[data-js="on"] .workflow__stage:not(:last-child)::after {
+  height: 1px;
+  border-top: 0;
+  background-color: #a7a7a3;
+  background-image: linear-gradient(90deg, var(--signal) 0 100%);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  transition: background-size 320ms var(--ease-step);
+}
+
+[data-js="on"] .workflow__stage[data-state="done"]:not(:last-child)::after {
+  background-size: 100% 100%;
+}
+
+[data-js="on"] .workflow__stage:not(:last-child)::before {
+  transition: border-color 320ms var(--ease-step);
+}
+
+[data-js="on"] .workflow__stage[data-state="done"]:not(:last-child)::before {
+  border-color: var(--signal);
+}
+
+/* Nodes tick through in order while their stage holds the signal. */
+@keyframes pc-node-tick {
+  0% { color: #e6e5df; }
+  22% { color: var(--signal); }
+  100% { color: #e6e5df; }
+}
+
+[data-js="on"] .workflow__stage[data-state="active"] ul li {
+  animation: pc-node-tick 780ms var(--ease-step) both;
+}
+
+[data-js="on"] .workflow__stage[data-state="active"] ul li:nth-child(1) { animation-delay: 0ms; }
+[data-js="on"] .workflow__stage[data-state="active"] ul li:nth-child(2) { animation-delay: 90ms; }
+[data-js="on"] .workflow__stage[data-state="active"] ul li:nth-child(3) { animation-delay: 180ms; }
+[data-js="on"] .workflow__stage[data-state="active"] ul li:nth-child(4) { animation-delay: 270ms; }
+[data-js="on"] .workflow__stage[data-state="active"] ul li:nth-child(5) { animation-delay: 360ms; }
+
+/* --------------------------------------------------------------------------
+   Architecture stack — animated disclosure
+   Native <details> stays native; only the panel height is smoothed, and only
+   where the browser supports it. Everywhere else it opens instantly.
+   -------------------------------------------------------------------------- */
+
+@supports (interpolate-size: allow-keywords) and (selector(::details-content)) {
+  [data-js="on"] .architecture-stack details {
+    interpolate-size: allow-keywords;
+  }
+
+  [data-js="on"] .architecture-stack details::details-content {
+    overflow: clip;
+    block-size: 0;
+    opacity: 0;
+    transition:
+      block-size 300ms var(--ease-press),
+      opacity 220ms var(--ease-step),
+      content-visibility 300ms allow-discrete;
+  }
+
+  [data-js="on"] .architecture-stack details[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+  }
+}
+
+[data-js="on"] .architecture-stack summary i::before,
+[data-js="on"] .architecture-stack summary i::after {
+  transition: transform 240ms var(--ease-press);
+}
+
+/* The open layer is the one carrying the signal. */
+[data-js="on"] .architecture-stack details {
+  transition: border-color 260ms var(--ease-step);
+}
+
+[data-js="on"] .architecture-stack details[open] {
+  border-color: rgb(213 43 43 / 70%);
+}
+
+/* --------------------------------------------------------------------------
+   Evidence logs — the diagram reconfigures on inspection
+   Colour only; every step is already legible without hovering.
+   -------------------------------------------------------------------------- */
+
+[data-js="on"] .concept-flow li::before {
+  transition:
+    background-color 220ms var(--ease-step),
+    border-color 220ms var(--ease-step);
+}
+
+[data-js="on"] .concept-flow li:not(:last-child)::after {
+  background-image: linear-gradient(180deg, var(--signal) 0 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0%;
+  transition: background-size 260ms var(--ease-step);
+}
+
+[data-js="on"] .project-log:hover .concept-flow li::before,
+[data-js="on"] .project-log:focus-within .concept-flow li::before {
+  background: var(--signal);
+}
+
+[data-js="on"] .project-log:hover .concept-flow li:not(:last-child)::after,
+[data-js="on"] .project-log:focus-within .concept-flow li:not(:last-child)::after {
+  background-size: 100% 100%;
+}
+
+[data-js="on"] .project-log:hover .concept-flow li:nth-child(1)::before,
+[data-js="on"] .project-log:hover .concept-flow li:nth-child(1)::after { transition-delay: 0ms; }
+[data-js="on"] .project-log:hover .concept-flow li:nth-child(2)::before,
+[data-js="on"] .project-log:hover .concept-flow li:nth-child(2)::after { transition-delay: 110ms; }
+[data-js="on"] .project-log:hover .concept-flow li:nth-child(3)::before { transition-delay: 220ms; }
+
+[data-js="on"] .project-log {
+  transition: border-color 260ms var(--ease-step);
+}
+
+[data-js="on"] .project-log:hover,
+[data-js="on"] .project-log:focus-within {
+  border-color: var(--ink);
+}
+
+/* --------------------------------------------------------------------------
+   Pseudo-element rules
+   Framer cannot animate `::before` / `::after`, so these draw off the
+   `data-inview` attribute the `InView` primitive writes to their container.
+   -------------------------------------------------------------------------- */
+
+[data-js="on"] .chaos-system__statement::after {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 560ms var(--ease-mark) 320ms;
+}
+
+[data-js="on"] .chaos-system__statement[data-inview="true"]::after {
+  transform: scaleX(1);
+}
+
+/* The struck rule under "Built to evolve." keeps its -8deg set angle; only
+   its length is animated, so the two transforms are composed by hand. */
+[data-js="on"] .ethos-section__paper h2::after {
+  transform: rotate(-8deg) scaleX(0);
+  transform-origin: left center;
+  transition: transform 420ms var(--ease-mark) 480ms;
+}
+
+[data-js="on"] .ethos-section__paper[data-inview="true"] h2::after {
+  transform: rotate(-8deg) scaleX(1);
+}
+
+/* --------------------------------------------------------------------------
+   Closing status — the cursor the brief asks for
+   -------------------------------------------------------------------------- */
+
+@keyframes pc-caret {
+  0%, 48% { opacity: 1; }
+  49%, 100% { opacity: 0; }
+}
+
+[data-js="on"] .closing-section__status::after {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 0.15em;
+  background: var(--signal);
+  content: "";
+  vertical-align: -0.14em;
+  animation: pc-caret 1.05s steps(1, end) infinite;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile navigation — the panel arrives as a plate, not a dropdown
+   -------------------------------------------------------------------------- */
+
+@keyframes pc-panel-in {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@media (max-width: 56rem) {
+  [data-js="on"] .mobile-nav[open] .mobile-nav__panel {
+    animation: pc-panel-in 300ms var(--ease-press) both;
+  }
+
+  [data-js="on"] .mobile-nav[open] .mobile-nav__links a {
+    animation: pc-mark-in 320ms var(--ease-mark) both;
+  }
+
+  [data-js="on"] .mobile-nav[open] .mobile-nav__links a:nth-child(1) { animation-delay: 120ms; }
+  [data-js="on"] .mobile-nav[open] .mobile-nav__links a:nth-child(2) { animation-delay: 175ms; }
+  [data-js="on"] .mobile-nav[open] .mobile-nav__links a:nth-child(3) { animation-delay: 230ms; }
+  [data-js="on"] .mobile-nav[open] .mobile-nav__links a:nth-child(4) { animation-delay: 285ms; }
+}
+
+/* --------------------------------------------------------------------------
+   Interface state — kept to the one-pixel presses Stage 2 established
+   -------------------------------------------------------------------------- */
+
+[data-js="on"] .text-link span,
+[data-js="on"] .text-arrow span {
+  display: inline-block;
+  transition: transform 180ms var(--ease-press);
+}
+
+[data-js="on"] .text-link:hover span,
+[data-js="on"] .text-arrow:hover span,
+[data-js="on"] .project-link:hover span {
+  transform: translateX(3px);
+}
+
+[data-js="on"] .project-link span {
+  display: inline-block;
+  transition: transform 180ms var(--ease-press);
+}
+
+[data-js="on"] .tool-band li {
+  transition: opacity 200ms var(--ease-step);
+}
+
+[data-js="on"] .tool-band ul:hover li {
+  opacity: 0.42;
+}
+
+[data-js="on"] .tool-band ul li:hover {
+  opacity: 1;
+}
