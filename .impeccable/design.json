@@ -1,0 +1,305 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-08T20:28:02+05:30",
+  "title": "Design System: PaperCodes",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "#f4f1ea",
+        "tonalRamp": ["oklch(15% 0.012 90)", "oklch(25% 0.012 90)", "oklch(38% 0.012 90)", "oklch(52% 0.012 90)", "oklch(66% 0.012 90)", "oklch(78% 0.012 90)", "oklch(88% 0.012 90)", "oklch(95% 0.012 90)"]
+      },
+      "paper-bright": {
+        "role": "neutral",
+        "displayName": "Bright Paper",
+        "canonical": "#faf8f3",
+        "tonalRamp": ["oklch(15% 0.009 90)", "oklch(25% 0.009 90)", "oklch(38% 0.009 90)", "oklch(52% 0.009 90)", "oklch(66% 0.009 90)", "oklch(78% 0.009 90)", "oklch(88% 0.009 90)", "oklch(97% 0.009 90)"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink Black",
+        "canonical": "#0b0b0b",
+        "tonalRamp": ["oklch(15% 0.003 90)", "oklch(25% 0.003 90)", "oklch(38% 0.003 90)", "oklch(52% 0.003 90)", "oklch(66% 0.003 90)", "oklch(78% 0.003 90)", "oklch(88% 0.003 90)", "oklch(95% 0.003 90)"]
+      },
+      "engine": {
+        "role": "neutral",
+        "displayName": "Engine Charcoal",
+        "canonical": "#141414",
+        "tonalRamp": ["oklch(15% 0.004 90)", "oklch(25% 0.004 90)", "oklch(38% 0.004 90)", "oklch(52% 0.004 90)", "oklch(66% 0.004 90)", "oklch(78% 0.004 90)", "oklch(88% 0.004 90)", "oklch(95% 0.004 90)"]
+      },
+      "signal": {
+        "role": "primary",
+        "displayName": "Signal Red",
+        "canonical": "#d52b2b",
+        "tonalRamp": ["oklch(15% 0.19 27)", "oklch(25% 0.19 27)", "oklch(38% 0.19 27)", "oklch(52% 0.19 27)", "oklch(66% 0.19 27)", "oklch(78% 0.19 27)", "oklch(88% 0.19 27)", "oklch(95% 0.19 27)"]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Graphite",
+        "canonical": "#5f5d58",
+        "tonalRamp": ["oklch(15% 0.009 85)", "oklch(25% 0.009 85)", "oklch(38% 0.009 85)", "oklch(52% 0.009 85)", "oklch(66% 0.009 85)", "oklch(78% 0.009 85)", "oklch(88% 0.009 85)", "oklch(95% 0.009 85)"]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Paper Rule",
+        "canonical": "#aaa69e",
+        "tonalRamp": ["oklch(15% 0.012 85)", "oklch(25% 0.012 85)", "oklch(38% 0.012 85)", "oklch(52% 0.012 85)", "oklch(66% 0.012 85)", "oklch(78% 0.012 85)", "oklch(88% 0.012 85)", "oklch(95% 0.012 85)"]
+      },
+      "engine-rule": {
+        "role": "neutral",
+        "displayName": "Engine Rule",
+        "canonical": "#565656",
+        "tonalRamp": ["oklch(15% 0.003 90)", "oklch(25% 0.003 90)", "oklch(38% 0.003 90)", "oklch(52% 0.003 90)", "oklch(66% 0.003 90)", "oklch(78% 0.003 90)", "oklch(88% 0.003 90)", "oklch(95% 0.003 90)"]
+      }
+    },
+    "typographyMeta": {
+      "hero-display": {
+        "displayName": "Hero Display",
+        "purpose": "The explicit two-part homepage proposition."
+      },
+      "route-display": {
+        "displayName": "Route Display",
+        "purpose": "Full-scale titles in retained Stage 1 route shells."
+      },
+      "section-display": {
+        "displayName": "Section Display",
+        "purpose": "Architecture, capabilities, experience-engine, and process headings."
+      },
+      "feature-display": {
+        "displayName": "Feature Display",
+        "purpose": "Evidence introductions and compact editorial features."
+      },
+      "index-title": {
+        "displayName": "Index Title",
+        "purpose": "Capabilities, process steps, and evidence-plate titles."
+      },
+      "body": {
+        "displayName": "Technical Body",
+        "purpose": "Default supporting prose and system-oriented explanation."
+      },
+      "body-small": {
+        "displayName": "Compact Body",
+        "purpose": "Short descriptions inside dense editorial sections."
+      },
+      "label": {
+        "displayName": "Interface Label",
+        "purpose": "Navigation, actions, system stages, and structured rows."
+      },
+      "micro": {
+        "displayName": "Micro Annotation",
+        "purpose": "Statuses, disclaimers, indices, and utility copy."
+      },
+      "tool-name": {
+        "displayName": "Tool Name",
+        "purpose": "System-sans integration names paired with Simple Icons."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "nav-underline",
+        "value": "180ms ease-out",
+        "purpose": "Reveals the desktop navigation underline from left to right."
+      },
+      {
+        "name": "state-inversion",
+        "value": "160ms ease-out",
+        "purpose": "Swaps project-link foreground and background colors on hover."
+      },
+      {
+        "name": "press",
+        "value": "100ms ease-out",
+        "purpose": "Moves project and text links down by one pixel on active press."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0.01ms",
+        "purpose": "Effectively removes transitions when reduced motion is requested."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "balanced-split",
+        "value": "72rem"
+      },
+      {
+        "name": "stacked-layout",
+        "value": "56rem"
+      },
+      {
+        "name": "single-column-workflow",
+        "value": "35rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Solid Project Link",
+      "kind": "button",
+      "refersTo": "project-link-solid",
+      "description": "The primary start-project action used on paper surfaces.",
+      "html": "<a class=\"ds-project-solid\" href=\"#\">Start a project <span aria-hidden=\"true\">→</span></a>",
+      "css": ".ds-project-solid { display:inline-flex; min-height:2.8rem; width:max-content; align-items:center; justify-content:center; gap:.8rem; border:1px solid var(--ink); padding:.75rem 1rem; color:var(--paper-bright); background:var(--ink); font-family:var(--technical); font-size:.68rem; font-weight:500; letter-spacing:.045em; text-decoration:none; text-transform:uppercase; white-space:nowrap; transition:color 160ms ease-out,background-color 160ms ease-out,transform 100ms ease-out; } .ds-project-solid:hover { color:var(--ink); background:transparent; } .ds-project-solid:focus-visible { outline:2px solid var(--signal); outline-offset:4px; } .ds-project-solid:active { transform:translateY(1px); }"
+    },
+    {
+      "name": "Light Project Link",
+      "kind": "button",
+      "refersTo": "project-link-light",
+      "description": "The bright-paper project action reserved for dark closing fields.",
+      "html": "<a class=\"ds-project-light\" href=\"#\">Initialize project <span aria-hidden=\"true\">→</span></a>",
+      "css": ".ds-project-light { display:inline-flex; min-height:2.8rem; width:max-content; align-items:center; justify-content:center; gap:.8rem; border:1px solid var(--paper-bright); padding:.75rem 1rem; color:var(--ink); background:var(--paper-bright); font-family:var(--technical); font-size:.68rem; font-weight:500; letter-spacing:.045em; text-decoration:none; text-transform:uppercase; white-space:nowrap; transition:color 160ms ease-out,background-color 160ms ease-out,transform 100ms ease-out; } .ds-project-light:hover { color:var(--paper-bright); background:transparent; } .ds-project-light:focus-visible { outline:2px solid var(--signal); outline-offset:4px; } .ds-project-light:active { transform:translateY(1px); }"
+    },
+    {
+      "name": "Primary Navigation",
+      "kind": "nav",
+      "refersTo": "navigation-label",
+      "description": "Centered desktop navigation with a directional hairline hover state.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Primary navigation\"><a href=\"#\">Work</a><a href=\"#\">Services</a><a href=\"#\">Approach</a><a href=\"#\">About</a></nav>",
+      "css": ".ds-nav { display:flex; align-items:center; gap:clamp(1.5rem,3.2vw,3.25rem); color:var(--ink); font-family:var(--technical); font-size:.68rem; font-weight:500; letter-spacing:.045em; text-transform:uppercase; } .ds-nav a { position:relative; color:inherit; text-decoration:none; } .ds-nav a::after { position:absolute; right:0; bottom:-.32rem; left:0; height:1px; background:currentColor; content:\"\"; transform:scaleX(0); transform-origin:right; transition:transform 180ms ease-out; } .ds-nav a:hover::after { transform:scaleX(1); transform-origin:left; } .ds-nav a:focus-visible { outline:2px solid var(--signal); outline-offset:4px; }"
+    },
+    {
+      "name": "Tool Logo",
+      "kind": "custom",
+      "refersTo": "tool-logo",
+      "description": "A real Simple Icon paired with its integration name in the tool band.",
+      "html": "<span class=\"ds-tool-logo\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305h.003z\"/></svg><span>Stripe</span></span>",
+      "css": ".ds-tool-logo { display:inline-flex; align-items:center; justify-content:center; gap:.48rem; color:var(--ink); font-family:ui-sans-serif,system-ui,sans-serif; font-size:clamp(.78rem,1.15vw,1.1rem); font-weight:700; } .ds-tool-logo svg { width:1.25em; height:1.25em; flex:0 0 auto; fill:currentColor; }"
+    },
+    {
+      "name": "Workflow Stage",
+      "kind": "custom",
+      "refersTo": "workflow-stage",
+      "description": "A numbered technical stage used inside the hero engine.",
+      "html": "<article class=\"ds-workflow-stage\"><header><span>01</span><h3>Input</h3></header><ul><li>Form</li><li>Message</li><li>Call</li><li>API</li><li>Manual task</li></ul></article>",
+      "css": ".ds-workflow-stage { width:11rem; min-height:11.2rem; border:1px solid var(--engine-rule); padding:clamp(.7rem,1vw,1rem); color:#ededeb; background:rgba(20,20,20,.88); font-family:var(--technical); } .ds-workflow-stage header { display:flex; align-items:baseline; gap:.55rem; padding-bottom:.55rem; border-bottom:1px solid #414141; } .ds-workflow-stage header span { color:var(--signal); font-size:.62rem; } .ds-workflow-stage h3 { margin:0; font-size:clamp(.62rem,.64vw,.7rem); font-weight:500; text-transform:uppercase; } .ds-workflow-stage ul { margin:.75rem 0 0; padding:0; color:#c4c4c1; font-size:clamp(.62rem,.65vw,.7rem); line-height:1.75; list-style:none; } .ds-workflow-stage li::before { color:#7d7d79; content:\"· \"; }"
+    },
+    {
+      "name": "Pipeline Step",
+      "kind": "custom",
+      "refersTo": "pipeline-step",
+      "description": "A ruled operational row from the chaos-to-system pipeline.",
+      "html": "<ol class=\"ds-pipeline\"><li><span>01</span>Intake</li><li><span>02</span>Normalize</li><li><span>03</span>Validate</li></ol>",
+      "css": ".ds-pipeline { width:20rem; margin:0; padding:0; border-top:1px solid var(--engine-rule); color:var(--paper-bright); background-color:var(--engine); background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px); background-size:3rem 3rem; font-family:var(--technical); list-style:none; } .ds-pipeline li { display:grid; grid-template-columns:3.25rem 1fr; align-items:center; min-height:3.45rem; border-bottom:1px solid var(--engine-rule); padding-inline:.8rem; font-size:clamp(.68rem,.82vw,.82rem); text-transform:uppercase; } .ds-pipeline li span { color:var(--signal); }"
+    },
+    {
+      "name": "Architecture Layer",
+      "kind": "custom",
+      "refersTo": "architecture-layer",
+      "description": "A single inspectable layer in the four-part PaperCodes stack.",
+      "html": "<article class=\"ds-architecture-layer\"><span>03</span><strong>Automation</strong><small>Workflows / Integrations / Logic</small><i aria-hidden=\"true\">+</i></article>",
+      "css": ".ds-architecture-layer { display:grid; grid-template-columns:3rem 1fr 1.7fr 1.5rem; gap:.65rem; align-items:center; min-height:4.1rem; border:1px solid var(--engine-rule); padding:.75rem; color:var(--paper-bright); background:var(--engine); font-family:var(--technical); } .ds-architecture-layer > span,.ds-architecture-layer > i { color:var(--signal); font-style:normal; } .ds-architecture-layer strong { font-size:.75rem; font-weight:500; text-transform:uppercase; } .ds-architecture-layer small { color:#bebeba; font-size:.62rem; }"
+    },
+    {
+      "name": "Capability Row",
+      "kind": "custom",
+      "refersTo": "capability-row",
+      "description": "A numbered service index row, designed as a ruled record rather than a card.",
+      "html": "<article class=\"ds-capability-row\"><span>03</span><h3>Automation</h3><p>n8n / Make / APIs / Webhooks / Orchestration / Operations</p></article>",
+      "css": ".ds-capability-row { display:grid; grid-template-columns:3rem .85fr 1.35fr; gap:1rem; align-items:start; min-height:6.1rem; border-block:1px solid var(--rule); padding:1.2rem 0; color:var(--ink); background:var(--paper-bright); } .ds-capability-row > span { color:var(--signal); font-family:var(--technical); font-size:.66rem; } .ds-capability-row h3 { margin:0; font-family:var(--display); font-size:clamp(1.55rem,2.2vw,2.4rem); font-weight:400; line-height:.95; } .ds-capability-row p { margin:0; color:var(--muted); font-family:var(--technical); font-size:.65rem; line-height:1.75; }"
+    },
+    {
+      "name": "Illustrative Project Log",
+      "kind": "card",
+      "refersTo": "project-log",
+      "description": "A typed concept record whose badge and disclaimer keep illustrative evidence explicit.",
+      "html": "<article class=\"ds-project-log\"><header><span>EXP_001</span><strong>CONCEPT</strong></header><h3>E-commerce conversion engine</h3><p>Shopify to enrichment to CRM to email</p><div class=\"ds-project-plate\"><small>Experience + automation</small><span>Shopify storefront redesign</span></div><dl><div><dt>Conversion</dt><dd>+43%</dd></div><div><dt>Manual work</dt><dd>-62%</dd></div></dl><small class=\"ds-project-disclaimer\">Illustrative concept metrics</small></article>",
+      "css": ".ds-project-log { display:flex; width:18rem; min-height:27rem; flex-direction:column; padding:1.35rem; border:1px solid var(--rule); color:var(--ink); background:var(--paper); font-family:var(--technical); } .ds-project-log header { display:flex; align-items:center; justify-content:space-between; font-size:.62rem; } .ds-project-log header strong { border:1px solid var(--signal); padding:.18rem .3rem; color:var(--signal); font-weight:500; } .ds-project-log h3 { margin:.85rem 0 .25rem; font-size:.75rem; font-weight:500; text-transform:uppercase; } .ds-project-log > p { overflow:hidden; margin:0; color:var(--muted); font-size:.62rem; text-overflow:ellipsis; white-space:nowrap; } .ds-project-plate { display:flex; min-height:10rem; justify-content:space-between; flex-direction:column; margin:1.4rem 0 1.1rem; padding:1rem; color:var(--paper-bright); background:var(--engine); } .ds-project-plate small { color:#a7a7a3; font-size:.62rem; text-transform:uppercase; } .ds-project-plate span { max-width:11ch; font-family:var(--display); font-size:clamp(1.5rem,2vw,2.15rem); line-height:.9; } .ds-project-log dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:auto 0 0; } .ds-project-log dl div { display:flex; flex-direction:column-reverse; } .ds-project-log dt { margin-top:.25rem; font-size:.62rem; text-transform:uppercase; } .ds-project-log dd { margin:0; font-size:clamp(1.35rem,2vw,2.1rem); line-height:1; } .ds-project-disclaimer { margin-top:1rem; color:var(--muted); font-size:.62rem; text-transform:uppercase; }"
+    },
+    {
+      "name": "Experience and Engine Demo",
+      "kind": "custom",
+      "refersTo": "split-demo",
+      "description": "A ruled split showing one customer action beside its operational sequence.",
+      "html": "<section class=\"ds-split-demo\"><article class=\"ds-surface\"><small>The experience</small><h3>Tell us what you're building.</h3><p>A clear form. One useful confirmation. No visible complexity.</p><strong>Form submitted</strong></article><article class=\"ds-engine\"><small>The engine</small><ol><li><span>01</span>Validate</li><li><span>02</span>Enrich</li><li><span>03</span>Score</li><li><span>04</span>Route</li></ol><strong>Follow-up ready</strong></article></section>",
+      "css": ".ds-split-demo { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); min-height:22rem; border:1px solid var(--ink); color:var(--ink); font-family:var(--technical); } .ds-surface,.ds-engine { display:flex; flex-direction:column; padding:2rem; } .ds-surface { background:var(--paper-bright); } .ds-surface small,.ds-engine small { font-size:.65rem; text-transform:uppercase; } .ds-surface h3 { max-width:9ch; margin:2rem 0 1rem; font-family:var(--display); font-size:clamp(2.8rem,5vw,5rem); font-weight:400; line-height:.88; } .ds-surface p { max-width:44ch; margin:0; color:var(--muted); font-size:.7rem; } .ds-surface strong { width:max-content; margin-top:2rem; border:1px solid var(--ink); padding:.8rem 1rem; font-size:.62rem; font-weight:500; text-transform:uppercase; } .ds-engine { color:var(--paper-bright); background-color:var(--engine); background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px); background-size:100% 3rem; } .ds-engine ol { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.65rem; margin:auto 0; padding:0; list-style:none; } .ds-engine li { display:flex; min-height:3.8rem; align-items:center; gap:1rem; border:1px solid var(--engine-rule); padding:.8rem; font-size:.67rem; text-transform:uppercase; } .ds-engine li span,.ds-engine > strong { color:var(--signal); } .ds-engine > strong { font-size:.65rem; font-weight:500; text-align:right; text-transform:uppercase; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Torn Systems Dossier",
+    "overview": "PaperCodes is an editorial-industrial agency world for growth-stage operators: a warm paper dossier collides with a precise dark operating engine. It is raw, confident, technical, and human. Monumental serif propositions create urgency; compact monospaced language exposes the inputs, handoffs, decisions, and outcomes behind them.\n\nThe shipped Stage 2 homepage follows a high-variance, medium-density 9/3/5 direction with restrained static motion. Its visual rhythm moves between full-height splits, 4/3/5 dossier fields, 12-column technical spreads, indexes, evidence plates, triptychs, and a dark closing field. Rotation, overlap, tonal paper layers, grid lines, and red signals create tension without animated spectacle.\n\nStage 2 is a complete static narrative: hero and tool band; chaos-to-system transformation; four-layer architecture; capabilities index; clearly illustrative concept evidence; surface-versus-engine demonstration; ethos triptych; process loop; and closing project invitation. Generated photography, collage imagery, real torn-paper assets, and richer motion or reveal interactions remain explicitly deferred to Stage 3 and later.",
+    "keyCharacteristics": [
+      "Warm uncoated paper, bright paper, graphite layers, ink black, and a single signal red.",
+      "Monumental editorial serif paired with dense, inspectable technical mono.",
+      "High composition variance held together by repeated 12-column alignment and one-pixel rules.",
+      "Static dossier tension from rotation, overlap, grids, offset notes, and alternating light/dark fields.",
+      "Square geometry, compact data labels, typed illustrative evidence, and direct operational language.",
+      "Responsive reflow that preserves narrative order instead of shrinking desktop compositions."
+    ],
+    "rules": [
+      {
+        "name": "The Signal Means System Rule",
+        "body": "Use signal red for automation, state, focus, evidence status, or a decisive proposition—not as general decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tonal Neutral Rule",
+        "body": "Neighboring grays may separate paper layers or engine hierarchy, but they must stay within the warm-paper or neutral-engine families and perform a distinct legibility job.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Surface Rule",
+        "body": "Customer-facing experience lives on paper; operational mechanics live in the near-black engine. Preserve this contrast whenever both appear together.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Voice Rule",
+        "body": "Serif makes the promise; mono explains, routes, measures, and verifies the system.",
+        "section": "typography"
+      },
+      {
+        "name": "The Optical Ramp Rule",
+        "body": "Preserve the expanded composition-led display ramp. Reuse the nearest established role and adjust only when a section's silhouette or grid span requires it.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tight Display Rule",
+        "body": "Large serif headlines use compressed leading and modest negative tracking; do not normalize them into conventional marketing typography.",
+        "section": "typography"
+      },
+      {
+        "name": "The Variance-on-a-Rail Rule",
+        "body": "Section compositions may change radically, but their outer width, gutters, shared rules, and reading order must stay aligned.",
+        "section": "layout"
+      },
+      {
+        "name": "The Spread-to-Sequence Rule",
+        "body": "Preserve desktop juxtaposition, then turn it into a direct semantic sequence on small screens; never squeeze a wide dossier into a miniature version of itself.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat-but-Layered Rule",
+        "body": "Build depth with overlap, tone, and ruled boundaries—not shadows, blur, glass, or floating cards.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Static Dossier Rule",
+        "body": "Rotation and offset may imply physical energy, but richer animation and reveal behavior belong to a later motion stage.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Hard-Edge Rule",
+        "body": "Default to zero-radius geometry. A rounded control is a semantic exception that must earn its form, not a general softening device.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do preserve the high-variance 9/3/5 dossier rhythm while aligning every section to the shared width, gutters, rules, and semantic reading order.",
+      "Do use the expanded serif ramp as an intentional optical system for different column spans and headline silhouettes.",
+      "Do use tonal neutrals to separate paper layers and engine hierarchy, giving every added shade a specific legibility role.",
+      "Do keep signal red sparse and meaningful: automation, state, focus, evidence status, connector, or decisive proposition.",
+      "Do use actual Simple Icons where shipped and a clean text fallback where no icon is mapped.",
+      "Do keep project evidence typed, explicitly illustrative, and visibly labeled CONCEPT until verified data replaces it.",
+      "Do preserve visible keyboard focus, semantic order, and the reduced-motion override in every extension."
+    ],
+    "donts": [
+      "Don't normalize the page into repeating equal cards, one headline size, or one flat gray; the controlled variance is the identity.",
+      "Don't soften the system with rounded containers, diffuse shadows, glossy gradients, or generic SaaS styling.",
+      "Don't turn signal red into a broad decorative wash or introduce a competing accent family.",
+      "Don't substitute a logo font, emoji, or improvised glyph where a shipped Simple Icon exists.",
+      "Don't present illustrative concept metrics as verified client results.",
+      "Don't describe generated photography, photographic collage, irregular raster tears, or torn-paper assets as shipped in Stage 2.",
+      "Don't describe scroll choreography, animated tears, parallax, drag reveals, or richer motion as implemented; those remain Stage 3+ work."
+    ]
+  }
+}

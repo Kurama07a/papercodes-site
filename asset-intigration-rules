@@ -1,0 +1,28 @@
+ASSET INTEGRATION RULES
+
+Do not use every generated asset.
+
+Use imagery sparingly.
+
+The generated material is a visual vocabulary, not a sticker pack.
+
+Paper tearing must communicate surface vs engine.
+
+Red marker elements should highlight conceptual moments, not decorate empty space.
+
+Architectural photography should support the philosophy/reinvention sections.
+
+Chaos collage should appear only where operational fragmentation is being discussed.
+
+Technical diagrams must be recreated as HTML/SVG rather than baked into images.
+
+All important typography must remain real HTML.
+
+All project metrics and labels must remain editable HTML.
+
+If an image contains imperfect generated typography, crop, obscure, or overlay it with real DOM typography.
+
+Optimize raster assets:
+- WebP/AVIF for photography
+- PNG only when transparency is required
+- responsive image sizing
