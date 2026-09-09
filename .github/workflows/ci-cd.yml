@@ -59,6 +59,7 @@ jobs:
           const crypto = require("node:crypto");
           const fs = require("node:fs");
 
+          async function main() {
           const url = process.env.COOLIFY_WEBHOOK_URL;
           const secret = process.env.COOLIFY_WEBHOOK_SECRET;
 
@@ -107,4 +108,10 @@ jobs:
           }
 
           console.log(`Coolify deployment queued: ${deployment.deployment_uuid}`);
+          }
+
+          main().catch((error) => {
+            console.error(error);
+            process.exitCode = 1;
+          });
           NODE
