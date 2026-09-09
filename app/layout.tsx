@@ -10,6 +10,8 @@ import "./globals.css";
 import "./reconciled.css";
 import "./sections-reconciled.css";
 import "./motion.css";
+import "./editorial-pages.css";
+import "./case-study.css";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { MotionProvider } from "@/components/motion/motion-provider";

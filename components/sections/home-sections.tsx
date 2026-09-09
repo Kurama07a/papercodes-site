@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { InView, Reveal, RevealGroup } from "@/components/motion/reveal";
 import { STAGGER } from "@/components/motion/motion-tokens";
 import { capabilities } from "@/data/capabilities";
@@ -16,12 +17,6 @@ const process = [
   { title: "Design", body: "Define the experience, data, and desired behavior." },
   { title: "Engineer", body: "Build, connect, and automate the system." },
   { title: "Evolve", body: "Measure, refine, and keep improving." },
-];
-
-const projectVisualTitles = [
-  <>Every lead.<br />One clear path.</>,
-  <>From interest<br />to pipeline.</>,
-  <>Everything moving.<br />One place.</>,
 ];
 
 export function ChaosSystemSection() {
@@ -115,10 +110,10 @@ export function EvidenceSection() {
     <section className="evidence-section" aria-labelledby="evidence-title">
       <div className="evidence-section__intro">
         <Reveal as="h2" kind="mark" id="evidence-title" amount={0.5}>
-          Concept<br /><em>logs.</em>
+          Proof of<br /><em>work.</em>
         </Reveal>
         <Reveal as="p" kind="rise" delay={0.2}>
-          Possible builds.<br />Connected systems.<br />Ideas made concrete.
+          Working products, operational systems, and the engineering evidence behind them.
         </Reveal>
         <Link className="text-arrow" href="/work">View all logs <span aria-hidden="true">→</span></Link>
       </div>
@@ -129,26 +124,23 @@ export function EvidenceSection() {
         colour only; every step already reads without hovering.
       */}
       <RevealGroup className="project-logs" stagger={STAGGER.loose} amount={0.2}>
-        {projectLogs.map((project, index) => (
+        {projectLogs.map((project) => (
           <Reveal as="article" kind="rise" child className="project-log" key={project.id}>
             <div className="project-log__meta">
               <span>{project.id}</span>
               <strong>{project.status}</strong>
             </div>
             <h3>{project.title}</h3>
-            <p>{project.engine}</p>
-            <div className={`project-log__plate project-log__plate--${project.id.toLowerCase()}`} aria-label={`Proposed flow for ${project.title}`}>
-              <small>Proposed system</small>
-              <strong className="project-log__visual-title">{projectVisualTitles[index]}</strong>
-              <ol className="concept-flow">
-                {[["Storefront", "Customer context", "CRM + email"], ["Lead capture", "Enrich + route", "Sales team"], ["Client portal", "Agent + workflow", "Operations"]][index].map((step) => <li key={step}>{step}</li>)}
-              </ol>
-            </div>
+            <p>{project.category}</p>
+            <Link className="project-log__plate" href={`/work/${project.slug}`} aria-label={`View evidence for ${project.title}`}>
+              <Image src={project.image} alt={`${project.title} interface`} fill sizes="(max-width: 700px) 100vw, 40vw" />
+              <span>Live product capture</span>
+            </Link>
             <dl>
-              <div><dt>Surface</dt><dd>{project.experience}</dd></div>
-              <div><dt>Connected layers</dt><dd>{project.category}</dd></div>
+              <div><dt>Outcome</dt><dd>{project.summary}</dd></div>
+              <div><dt>System</dt><dd>{project.engine}</dd></div>
             </dl>
-            <small className="project-log__disclaimer">Concept exploration, not a client result</small>
+            <Link className="project-log__disclaimer" href={`/work/${project.slug}`}>Read the evidence <span aria-hidden="true">→</span></Link>
           </Reveal>
         ))}
       </RevealGroup>

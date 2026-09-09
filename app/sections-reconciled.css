@@ -64,19 +64,16 @@
 .evidence-section__intro h2 em { display: inline-block; border-bottom: 2px solid var(--signal); padding: 0 1rem .2rem 0; }
 .evidence-section__intro p { max-width: none; margin: 1.5rem 0; font-size: 11px; }
 .text-arrow { min-height: 44px; display: inline-flex; align-items: center; gap: .6rem; font-size: 11px; }
-.project-logs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.project-logs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
 .project-log { min-height: 0; padding: .8rem; border: 1px solid var(--rule); background: rgb(244 243 238 / 42%); }
 .project-log:last-child { border-right: 1px solid var(--rule); }
 .project-log__meta, .project-log h3, .project-log > p { font-size: 11px; }
 .project-log > p { white-space: normal; min-height: 2.6em; line-height: 1.4; }
 .project-log h3 { min-height: 2.6em; }
-.project-log__plate { position: relative; isolation: isolate; min-height: 13rem; margin: .8rem 0; padding: .8rem; overflow: hidden; background-color: #141515; background-position: center; background-size: cover; }
-.project-log__plate::before { position: absolute; z-index: -1; inset: 0; content: ''; background: linear-gradient(90deg, rgb(7 7 7 / 88%), rgb(7 7 7 / 30%) 72%, rgb(7 7 7 / 62%)); }
-.project-log__plate--exp_001 { background-image: url('/images/chaos-collage.webp'); background-position: 38% 55%; }
-.project-log__plate--exp_002 { background-image: url('/images/ethos-collage.webp'); background-position: 65% center; }
-.project-log__plate--exp_003 { background-image: url('/images/ethos-collage.webp'); background-position: 86% center; }
-.project-log__plate small { position: relative; z-index: 2; font-size: 11px; color: #d0d0c9; }
-.project-log__visual-title { display: block; position: relative; z-index: 2; max-width: 9ch; margin: 1.2rem 0 1rem; color: #f0eee7; font: 600 clamp(1.6rem, 2.2vw, 2.4rem)/.92 var(--display); letter-spacing: -.03em; }
+.project-log__plate { position: relative; display: block; min-height: 16rem; margin: .8rem 0; overflow: hidden; border: 1px solid var(--rule); background: #141515; }
+.project-log__plate img { object-fit: cover; object-position: center top; filter: grayscale(1) contrast(1.04); transition: filter 220ms ease, transform 420ms ease; }
+.project-log__plate:hover img { filter: grayscale(.2) contrast(1.02); transform: scale(1.015); }
+.project-log__plate > span { position: absolute; right: .6rem; bottom: .6rem; padding: .25rem .4rem; color: #efeee8; background: #101111; font-size: 9px; text-transform: uppercase; }
 .concept-flow { display: flex; flex-direction: column; align-items: flex-start; gap: .65rem; list-style: none; margin: .8rem 0 0; padding: 0; }
 .concept-flow li { position: relative; z-index: 2; padding-left: 1.1rem; color: #f0eee7; font-size: 11px; line-height: 1.4; }
 .concept-flow li::before { content: ''; position: absolute; top: .4rem; left: 0; width: 5px; height: 5px; border: 1px solid var(--signal); }

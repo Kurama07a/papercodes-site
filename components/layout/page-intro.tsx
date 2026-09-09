@@ -1,27 +1,26 @@
 import Link from "next/link";
-import { Reveal } from "@/components/motion/reveal";
+import type { ReactNode } from "react";
 
 type PageIntroProps = {
   label: string;
   title: string;
   description: string;
+  children?: ReactNode;
+  compact?: boolean;
 };
 
-export function PageIntro({ label, title, description }: PageIntroProps) {
+export function PageIntro({ label, title, description, children, compact = false }: PageIntroProps) {
   return (
     <main className="route-shell" id="main-content">
-      <Reveal as="p" kind="mark" trigger="mount" delay={0.35} className="route-shell__label">
-        {label}
-      </Reveal>
-      <Reveal as="h1" kind="press" trigger="mount" delay={0.05}>
-        {title}
-      </Reveal>
-      <Reveal as="p" kind="rise" trigger="mount" delay={0.22} className="route-shell__description">
-        {description}
-      </Reveal>
-      <Link className="project-link project-link--dark" href="/start-project">
-        Start a project <span aria-hidden="true">→</span>
-      </Link>
+      <header className={`route-shell__intro${compact ? " route-shell__intro--compact" : ""}`}>
+        <p className="route-shell__label">{label}</p>
+        <h1>{title}</h1>
+        <p className="route-shell__description">{description}</p>
+        <Link className="project-link project-link--dark" href="/start-project">
+          Start a project <span aria-hidden="true">→</span>
+        </Link>
+      </header>
+      {children}
     </main>
   );
 }

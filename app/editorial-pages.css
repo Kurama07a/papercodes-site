@@ -1,0 +1,134 @@
+.route-shell {
+  display: block;
+  width: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.route-shell__intro {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-content: center;
+  width: min(100%, var(--content-max));
+  min-height: min(76rem, calc(100dvh - var(--header-height)));
+  margin-inline: auto;
+  padding: clamp(4rem, 9vw, 9rem) var(--page-gutter);
+}
+
+.route-shell__intro--compact { min-height: clamp(34rem, 58dvh, 46rem); }
+
+.route-shell__intro .route-shell__label {
+  grid-column: 3 / span 3;
+  grid-row: 1;
+  align-self: start;
+  justify-self: start;
+  margin: 0 0 1.5rem;
+  color: var(--signal);
+  text-align: left;
+}
+
+.route-shell__intro h1 {
+  grid-column: 3 / span 8;
+  grid-row: 2;
+}
+
+.route-shell__intro .route-shell__description {
+  grid-column: 3 / span 5;
+  grid-row: 3;
+  font-family: var(--prose);
+  font-size: clamp(.95rem, 1.25vw, 1.15rem);
+  line-height: 1.55;
+}
+
+.route-shell__intro .project-link {
+  grid-column: 3 / span 3;
+  grid-row: 4;
+}
+
+.route-section {
+  display: grid;
+  grid-template-columns: 3fr 9fr;
+  gap: clamp(2rem, 5vw, 6rem);
+  padding: clamp(4rem, 8vw, 8rem) var(--page-gutter);
+  border-top: 1px solid var(--rule);
+  background-color: var(--paper-bright);
+  background-image: url('/images/paper-texture.webp');
+  background-size: 900px;
+}
+
+.route-section--dark {
+  color: #ecebe5;
+  border-color: #3b3b39;
+  background: #111212;
+  background-image: linear-gradient(rgb(255 255 255 / 3%) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 3%) 1px, transparent 1px);
+  background-size: 54px 54px;
+}
+
+.route-section__heading > p,
+.route-section article > span,
+.route-section li > span,
+.route-facts dt {
+  margin: 0 0 1rem;
+  color: var(--signal);
+  font: 500 .68rem/1.4 var(--technical);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.route-section__heading h2 {
+  max-width: 13ch;
+  margin: 0;
+  font: 400 clamp(2.6rem, 5vw, 5.5rem)/.92 var(--display);
+  letter-spacing: -.035em;
+}
+
+.route-index,
+.route-columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.route-index > *,
+.route-columns > * {
+  min-width: 0;
+  padding: 1.5rem;
+  border: 1px solid currentColor;
+  border-right: 0;
+}
+
+.route-index > *:last-child,
+.route-columns > *:last-child { border-right: 1px solid currentColor; }
+.route-index h3, .route-columns h3 { margin: 1rem 0; font: 400 clamp(1.5rem, 2.2vw, 2.4rem)/1 var(--display); }
+.route-index p, .route-columns p, .route-prose p, .route-facts dd { font-family: var(--prose); line-height: 1.55; }
+.route-index p strong { display: block; margin-bottom: .4rem; color: var(--signal); font: 500 .65rem/1.4 var(--technical); text-transform: uppercase; }
+.route-index a { display: inline-block; margin-top: 1.5rem; color: inherit; font: 500 .68rem/1.4 var(--technical); text-transform: uppercase; }
+
+.route-prose { max-width: 55rem; }
+.route-prose p { margin: 0 0 1.5rem; font-size: clamp(1.05rem, 1.5vw, 1.35rem); }
+.route-facts { display: grid; grid-template-columns: 1fr 1fr; margin: 0; }
+.route-facts div { padding: 1.5rem; border: 1px solid #4a4a47; }
+.route-facts dt { margin-bottom: .65rem; }
+.route-facts dd { margin: 0; }
+.route-columns--questions { grid-template-columns: 1fr 1fr; }
+.route-columns--questions li { font: 400 clamp(1.25rem, 2vw, 2rem)/1.15 var(--display); }
+.route-contact { grid-column: 2; justify-self: start; margin-top: 2rem; }
+
+.project-proof { margin: 0; padding: clamp(1rem, 3vw, 3rem); background: #111212; }
+.project-proof img { display: block; width: 100%; height: auto; border: 1px solid #4a4a47; filter: grayscale(1) contrast(1.06); }
+.project-proof figcaption { margin-top: .75rem; color: #aaa9a4; font: 500 .62rem/1.4 var(--technical); text-transform: uppercase; }
+
+@media (max-width: 56rem) {
+  .route-shell__intro { min-height: 70dvh; padding-block: 5rem; }
+  .route-shell__intro h1, .route-shell__intro .route-shell__description, .route-shell__intro .project-link, .route-shell__intro .route-shell__label { grid-column: 1 / -1; }
+  .route-section { grid-template-columns: 1fr; }
+  .route-index, .route-columns { grid-template-columns: 1fr; }
+  .route-index > *, .route-columns > * { border-right: 1px solid currentColor; border-bottom: 0; }
+  .route-index > *:last-child, .route-columns > *:last-child { border-bottom: 1px solid currentColor; }
+  .route-facts { grid-template-columns: 1fr; }
+  .route-contact { grid-column: 1; }
+}

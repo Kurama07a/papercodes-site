@@ -8,7 +8,7 @@ import {
   EvidenceSection,
 } from "@/components/sections/home-sections";
 import { HeroArt } from "@/components/motion/hero-art";
-import { Reveal, RevealGroup } from "@/components/motion/reveal";
+import { Reveal } from "@/components/motion/reveal";
 import { ToolLogo } from "@/components/ui/tool-logo";
 
 const tools = ["Stripe", "Notion", "Make", "n8n", "OpenAI", "Supabase", "Vercel"];
@@ -51,7 +51,7 @@ export default function Home() {
             </em>
           </h1>
           <Reveal as="p" kind="rise" trigger="mount" delay={0.66} className="hero__description">
-            Websites. Workflows. Agents.<br />Custom tools. Connected systems.<br />For businesses that refuse to stay the same.
+            For growing teams whose website, CRM, spreadsheets, and internal workflows no longer operate as one system.
           </Reveal>
           <Reveal kind="rise" trigger="mount" delay={0.76} className="hero__actions">
             <Link className="project-link project-link--dark" href="/start-project">
@@ -70,14 +70,14 @@ export default function Home() {
 
       <section className="tool-band" aria-label="Tools PaperCodes builds with and connects to">
         <div className="tool-band__main">
-          <Reveal as="p" kind="mark">Built with / connected to</Reveal>
-          <RevealGroup as="ul" stagger={0.05} amount={0.5}>
+          <p>Built with / connected to</p>
+          <ul>
             {tools.map((tool) => (
-              <Reveal as="li" kind="rise" child key={tool}><ToolLogo name={tool} /></Reveal>
+              <li key={tool}><ToolLogo name={tool} /></li>
             ))}
-          </RevealGroup>
+          </ul>
         </div>
-        <Reveal as="p" kind="mark" delay={0.2} className="tool-band__note">Tools are means.<br />Outcomes are the point.</Reveal>
+        <p className="tool-band__note">Tools are means.<br />Outcomes are the point.</p>
       </section>
 
       <ChaosSystemSection />
