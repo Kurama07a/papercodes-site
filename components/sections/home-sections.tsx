@@ -108,10 +108,15 @@ export function CapabilitiesSection() {
 export function EvidenceSection() {
   return (
     <section className="evidence-section" aria-labelledby="evidence-title">
+      <div className="evidence-section__tear">
+        <div className="evidence-section__tear-ink">
+          <Reveal as="h2" kind="press" id="evidence-title" amount={0.35}>
+            Proof of <em>work.</em>
+          </Reveal>
+        </div>
+        <Image className="evidence-section__tear-paper" src="/images/proof-tear-overlay-v2.png" alt="" fill sizes="100vw" aria-hidden="true" />
+      </div>
       <div className="evidence-section__intro">
-        <Reveal as="h2" kind="mark" id="evidence-title" amount={0.5}>
-          Proof of<br /><em>work.</em>
-        </Reveal>
         <Reveal as="p" kind="rise" delay={0.2}>
           Working products, operational systems, and the engineering evidence behind them.
         </Reveal>

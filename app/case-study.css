@@ -2,14 +2,26 @@
 .case-study h1, .case-study h2, .case-study p { text-wrap: pretty; }
 .case-study .case-label { position: static; display: block; width: fit-content; margin: 0 0 1.5rem; padding-bottom: .4rem; color: var(--signal); border-bottom: 1px solid currentColor; font: 500 .62rem/1.4 var(--technical); letter-spacing: .04em; text-transform: uppercase; }
 
-.case-hero { display: grid; grid-template-columns: 1.05fr .95fr; min-height: calc(100dvh - var(--header-height)); border-bottom: 1px solid var(--rule); }
-.case-hero__copy { position: relative; display: flex; flex-direction: column; justify-content: center; padding: clamp(4rem, 8vw, 8rem) clamp(2.5rem, 5vw, 6rem); }
+.case-hero { display: grid; grid-template-columns: .94fr 1.06fr; min-height: calc(100dvh - var(--header-height)); overflow: hidden; }
+.case-hero__copy { position: relative; z-index: 3; display: flex; flex-direction: column; justify-content: center; padding: clamp(4rem, 8vw, 8rem) clamp(2.5rem, 5vw, 6rem); }
 .case-hero h1 { max-width: 10ch; margin: 1.3rem 0 2rem; font: 400 clamp(4rem, 7.3vw, 7rem)/.82 var(--display); letter-spacing: -.035em; }
 .case-hero__lede { max-width: 58ch; margin: 0 0 2rem; font-family: var(--prose); font-size: clamp(1rem, 1.3vw, 1.2rem); line-height: 1.55; }
 .case-hero__copy .project-link { align-self: flex-start; }
-.case-hero__artifact { position: relative; min-height: 42rem; margin: 0; overflow: hidden; background: #101111; }
-.case-hero__artifact img { object-fit: cover; object-position: center; filter: grayscale(1) contrast(1.08); }
-.case-hero__artifact figcaption { position: absolute; right: 1rem; bottom: 1rem; padding: .45rem .6rem; color: var(--paper-bright); background: #111; font: 500 .6rem/1.4 var(--technical); text-transform: uppercase; }
+.case-hero__artifact { position: relative; z-index: 2; min-height: 42rem; margin: 0; overflow: visible; background: #111212; }
+.case-hero__artifact .case-hero__photo { z-index: 1; object-fit: cover; object-position: 58% center; filter: grayscale(1) contrast(1.13); }
+/* The strip is wider than the seam it covers and its flat left edge is feathered
+   out, so the paper dissolves into the copy column instead of ending on a
+   straight cut. The torn edge itself never reaches into that first 14%. */
+/* torn-divider.png only has a real torn edge across its middle band; above ~13%
+   and below ~72% the paper runs to the element's edge and would end on a straight
+   vertical cut. Oversizing it to 196% and pulling it up by 33.4% means the frame
+   only ever shows rows 17%-70%, so the tear stays a tear top to bottom. */
+.case-hero__artifact .case-hero__tear { z-index: 2; inset: -33.4% auto auto clamp(-9rem, -8vw, -6rem) !important; width: clamp(11rem, 14vw, 17rem) !important; height: 196% !important; object-fit: fill; filter: saturate(.72) contrast(1.03); -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14%); mask-image: linear-gradient(90deg, transparent 0, #000 14%); pointer-events: none; }
+/* The frame ends on a flat horizontal cut where the photograph and the strip
+   both stop. Tear it, so the hero sheds into the page the same way its left
+   edge does — the two torn edges then meet at the corner. */
+.case-hero__artifact::after { position: absolute; z-index: 3; right: 0; bottom: -1px; left: 0; height: clamp(1.4rem, 2.2vw, 2.1rem); content: ''; background: var(--paper); clip-path: polygon(0% 75%, 2.2% 62%, 3% 58%, 6% 58%, 7.5% 68%, 10.4% 68%, 12.7% 66%, 15.1% 67%, 16.2% 66%, 17.3% 77%, 18.5% 86%, 20.9% 86%, 23.7% 78%, 26% 75%, 28.4% 85%, 29.4% 78%, 32.1% 86%, 33.9% 81%, 34.8% 77%, 37.8% 89%, 40% 86%, 42.8% 83%, 44.3% 81%, 45.5% 68%, 47.8% 71%, 49.3% 70%, 50.3% 69%, 51.4% 64%, 54.3% 67%, 55.7% 73%, 58.4% 70%, 59.8% 56%, 61.2% 62%, 62.2% 73%, 64.7% 73%, 67% 85%, 68.6% 66%, 71.1% 71%, 72% 74%, 73.5% 76%, 75% 81%, 76.7% 79%, 78.6% 63%, 79.4% 77%, 81.9% 74%, 83.5% 70%, 85.9% 68%, 87.3% 84%, 89.7% 66%, 90.8% 66%, 92.2% 63%, 94% 73%, 96.7% 74%, 98.1% 68%, 100% 64%, 100% 100%, 0 100%); pointer-events: none; }
+.case-hero__artifact figcaption { position: absolute; z-index: 4; right: 1rem; bottom: 2.4rem; padding: .45rem .6rem; color: var(--paper-bright); background: #111; font: 500 .6rem/1.4 var(--technical); text-transform: uppercase; }
 
 .case-problem, .case-architecture, .case-evidence, .case-verdict { position: relative; display: grid; grid-template-columns: 5fr 7fr; gap: clamp(2rem, 6vw, 7rem); padding: clamp(5rem, 9vw, 10rem) clamp(2.5rem, 4vw, 4rem); border-bottom: 1px solid var(--rule); }
 .case-problem h2, .case-architecture h2, .case-evidence h2, .case-verdict h2, .case-contribution h2 { max-width: 12ch; margin: 1rem 0 0; font: 400 clamp(3rem, 5.4vw, 5.8rem)/.87 var(--display); letter-spacing: -.03em; }
@@ -54,7 +66,8 @@
 @media (max-width: 56rem) {
   .case-hero, .case-problem, .case-architecture, .case-evidence, .case-verdict, .case-flow { grid-template-columns: 1fr; }
   .case-hero { min-height: 0; }
-  .case-hero__artifact { min-height: 24rem; }
+  .case-hero__artifact { min-height: 32rem; margin: -1px 0 0; clip-path: polygon(0 3.2rem, 7% 2.5rem, 15% 3.4rem, 24% 2.4rem, 34% 3.1rem, 45% 2.2rem, 56% 3.3rem, 68% 2.4rem, 79% 3rem, 90% 2.2rem, 100% 3.1rem, 100% 100%, 0 100%); }
+  .case-hero__artifact .case-hero__tear { display: none; }
   .case-flow__before { border-right: 0; border-bottom: 1px solid #494947; }
   .case-system-map { grid-template-columns: 1fr; }
   .case-system-map i { transform: rotate(90deg); }

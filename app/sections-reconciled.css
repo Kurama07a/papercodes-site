@@ -24,6 +24,10 @@
   pointer-events: none;
 }
 .chaos-system__field > * { z-index: 2; }
+/* The collage is a photograph that stops dead on the section rule. Tear its
+   bottom edge the way `.chaos-system::before` tears the top, so the sheet ends
+   the way every other sheet on this page does. */
+.chaos-system__field::before { position: absolute; z-index: 3; bottom: -1px; left: 0; width: 100%; height: 26px; content: ''; background: var(--paper); clip-path: polygon(0% 28%, 2.4% 77%, 4.7% 71%, 6.9% 87%, 9% 84%, 10.9% 73%, 13% 75%, 15.7% 71%, 16.6% 66%, 18% 45%, 19.6% 64%, 21.6% 75%, 23% 43%, 26.1% 68%, 27.4% 32%, 29.5% 51%, 30.7% 49%, 32% 46%, 33.9% 40%, 35.1% 53%, 36.8% 56%, 38.6% 35%, 41.4% 26%, 42.6% 29%, 43.5% 64%, 46% 65%, 48.8% 63%, 49.9% 74%, 52.3% 81%, 55.4% 70%, 58.4% 76%, 59.7% 75%, 61.2% 82%, 62.8% 82%, 63.9% 78%, 65.7% 75%, 66.9% 90%, 69.7% 81%, 70.9% 73%, 72.2% 83%, 74.8% 70%, 76% 61%, 78.2% 42%, 79.4% 76%, 82.6% 86%, 83.5% 52%, 86.2% 84%, 89.2% 79%, 92.2% 58%, 95.3% 88%, 97.8% 92%, 99.4% 82%, 100% 68%, 100% 100%, 0 100%); }
 .hand-note, .paper-note { font-family: var(--handwriting); font-style: normal; text-transform: uppercase; }
 .chaos-system .hand-note { top: 1.7rem; left: 1.7rem; font-size: clamp(1.6rem, 2.4vw, 2.5rem); line-height: .96; max-width: 8ch; }
 .fragment-list { top: 15%; right: 4%; width: 53%; gap: .45rem; padding: 1.3rem 1rem; border: 0; background: rgb(242 241 235 / 94%); font-size: 11px; transform: rotate(-8deg); box-shadow: 0 3px 12px #0002; }
@@ -58,19 +62,45 @@
 .capability-index li > span { font-size: 11px; }
 .capability-index h3 { margin: .5rem 0; font-family: var(--display); font-size: 1.5rem; line-height: 1; }
 .capability-index p { font-size: 11px; line-height: 1.65; color: var(--ink); }
-.evidence-section { grid-template-columns: 20% 80%; padding: 1.8rem var(--page-gutter) 2.2rem; }
-.evidence-section__intro { min-height: 0; padding: 1rem 1rem 1rem 0; border: 0; }
-.evidence-section__intro h2 { font-family: var(--handwriting); font-size: clamp(2.5rem, 4vw, 4.3rem); line-height: .85; letter-spacing: 0; text-transform: uppercase; transform: rotate(-6deg); }
-.evidence-section__intro h2 em { display: inline-block; border-bottom: 2px solid var(--signal); padding: 0 1rem .2rem 0; }
+.evidence-section { position: relative; grid-template-columns: 20% 80%; padding: 0 var(--page-gutter) 2.8rem; overflow: visible; }
+/*
+  The tear is one piece of artwork (2140x378) plus a mask cut from its own alpha
+  channel, so the black never spills past the torn opening. The strip runs the
+  full viewport and clips itself, so its own straight left edge always falls
+  offscreen rather than ending on a line inside the content column. Every offset below is
+  a percentage of that artwork box, which means the ink, the paper and the type
+  stay registered to each other at any viewport width. Regenerate the mask with
+  scripts/build-tear-mask.mjs if the overlay art is ever replaced.
+*/
+.evidence-section__tear { --tear-art: 5.6614; --tear-scale: 1.12; --tear-shift: -12%; --tear-hole-h: calc(29.6cqw * var(--tear-scale) / var(--tear-art)); --tear-tilt: -2.5deg; position: relative; z-index: 3; grid-column: 1 / -1; width: 100vw; aspect-ratio: var(--tear-art) / var(--tear-scale); margin: -1px 0 -3rem calc(50% - 50vw); overflow: hidden; background: transparent; container-type: inline-size; }
+.evidence-section__tear-ink, .evidence-section__tear-paper { position: absolute; top: 0 !important; right: auto !important; bottom: auto !important; left: var(--tear-shift) !important; width: calc(100% * var(--tear-scale)) !important; height: 100% !important; }
+.evidence-section__tear-ink { z-index: 1; color: #f1efe8; background-color: #111212; -webkit-mask: url('/images/proof-tear-hole-v2.png') 0 0 / 100% 100% no-repeat; mask: url('/images/proof-tear-hole-v2.png') 0 0 / 100% 100% no-repeat; }
+/* What sits under the paper reads as one tilted plane: the photograph and the
+   words share `--tear-tilt`. The tilt lives on this pseudo-element and on the
+   h2 rather than on the ink layer itself, because that layer carries the hole
+   mask -- rotating it would swing the mask off the tear. Oversized so the
+   rotated corners never pull away from the opening. */
+.evidence-section__tear-ink::before { position: absolute; z-index: -1; inset: -15%; content: ''; background: url('/images/proof-tear-fill.webp') center / cover no-repeat; transform: rotate(var(--tear-tilt)); }
+/* Largest rectangle that actually fits inside the opening, measured off the alpha. */
+.evidence-section__tear-ink h2 { position: absolute; inset: 35.4% 6.5% 35% 38.5%; max-width: none; margin: 0; white-space: nowrap; text-align: center; font-family: var(--display); /* line-height matches the opening's height, which is what centres the words in it */ font-size: clamp(1rem, calc(.95 * var(--tear-hole-h)), 7.25rem); line-height: var(--tear-hole-h); font-weight: 400; letter-spacing: -.045em; text-transform: none; transform: rotate(var(--tear-tilt)); }
+.evidence-section__tear-ink h2 em { color: var(--signal); font-style: normal; }
+/* The artwork ships warmer than the page -- same red, ~14 levels less blue --
+   which is what made it read as a sheet pasted on rather than the page itself
+   tearing open. The filter desaturates it onto the paper's tone; the gradient then lets
+   the flat left end dissolve into the page instead of running off as a band.
+   The fade is over by 24%, before the opening starts, so the tear stays crisp. */
+.evidence-section__tear-paper { z-index: 2; object-fit: fill; filter: saturate(.55) brightness(1.02); -webkit-mask-image: linear-gradient(90deg, transparent 6%, rgb(0 0 0 / 22%) 11%, rgb(0 0 0 / 62%) 17%, #000 24%); mask-image: linear-gradient(90deg, transparent 6%, rgb(0 0 0 / 22%) 11%, rgb(0 0 0 / 62%) 17%, #000 24%); pointer-events: none; }
+.evidence-section__intro { position: relative; z-index: 1; min-height: 0; padding: 3.2rem 1.5rem 1rem 0; border: 0; }
 .evidence-section__intro p { max-width: none; margin: 1.5rem 0; font-size: 11px; }
 .text-arrow { min-height: 44px; display: inline-flex; align-items: center; gap: .6rem; font-size: 11px; }
-.project-logs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-.project-log { min-height: 0; padding: .8rem; border: 1px solid var(--rule); background: rgb(244 243 238 / 42%); }
-.project-log:last-child { border-right: 1px solid var(--rule); }
+.project-logs { position: relative; z-index: 1; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.4rem, 2.5vw, 2.8rem); padding-top: 1rem; }
+.project-log { position: relative; isolation: isolate; min-height: 0; padding: 2.2rem 1rem 1rem; border: 0; background: rgb(244 243 238 / 82%); box-shadow: 0 .8rem 2.2rem rgb(22 22 20 / 9%); }
+.project-log::before { position: absolute; z-index: -1; inset: -.65rem -.5rem; content: ''; background: rgb(244 243 238 / 96%); clip-path: polygon(0 1.2%, 5% .2%, 11% 1%, 17% 0, 24% .9%, 31% .15%, 39% 1%, 48% .1%, 57% .8%, 66% 0, 75% .9%, 84% .2%, 92% 1%, 100% .15%, 99.6% 9%, 100% 19%, 99.5% 31%, 100% 43%, 99.4% 55%, 100% 68%, 99.5% 82%, 100% 100%, 91% 99.2%, 82% 100%, 73% 99.1%, 64% 100%, 54% 99.2%, 44% 100%, 34% 99.1%, 24% 100%, 13% 99.2%, 0 100%, .5% 88%, 0 76%, .6% 63%, 0 49%, .5% 34%, 0 20%); }
+.project-log:last-child { border-right: 0; transform: translateY(1.8rem) rotate(.3deg); }
 .project-log__meta, .project-log h3, .project-log > p { font-size: 11px; }
 .project-log > p { white-space: normal; min-height: 2.6em; line-height: 1.4; }
 .project-log h3 { min-height: 2.6em; }
-.project-log__plate { position: relative; display: block; min-height: 16rem; margin: .8rem 0; overflow: hidden; border: 1px solid var(--rule); background: #141515; }
+.project-log__plate { position: relative; display: block; min-height: 16rem; margin: .8rem 0; overflow: hidden; border: 0; background: #141515; clip-path: polygon(0 .8%, 8% 0, 16% .6%, 27% .1%, 39% .7%, 52% 0, 67% .6%, 81% .15%, 92% .7%, 100% 0, 100% 99%, 88% 100%, 75% 99.4%, 62% 100%, 49% 99.3%, 35% 100%, 21% 99.4%, 8% 100%, 0 99%); }
 .project-log__plate img { object-fit: cover; object-position: center top; filter: grayscale(1) contrast(1.04); transition: filter 220ms ease, transform 420ms ease; }
 .project-log__plate:hover img { filter: grayscale(.2) contrast(1.02); transform: scale(1.015); }
 .project-log__plate > span { position: absolute; right: .6rem; bottom: .6rem; padding: .25rem .4rem; color: #efeee8; background: #101111; font-size: 9px; text-transform: uppercase; }
@@ -181,12 +211,15 @@
   .capabilities-section__heading h2 br { display: none; }
   .capability-index { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
   .evidence-section { grid-template-columns: 1fr; }
-  .evidence-section__intro { display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: .7rem 0 1.4rem; }
-  .evidence-section__intro h2 { font-size: 3.3rem; }
+  /* Run the artwork wider than the viewport so the opening, not the blank slab,
+     is what the reader gets; the slab slides off the left edge. */
+  .evidence-section__tear { --tear-scale: 1.42; --tear-shift: -34%; margin-bottom: -1.5rem; }
+  .evidence-section__intro { display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 2.4rem 0 1.4rem; }
   .evidence-section__intro p { margin: 0; }
   .evidence-section__intro .text-arrow { grid-column: 2; }
   .project-logs { grid-template-columns: 1fr; gap: 1rem; }
-  .project-log { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem .8rem; padding: .8rem; }
+  .project-log { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem .8rem; padding: 2.4rem .8rem .8rem; }
+  .project-log:last-child { transform: none; }
   .project-log__meta { grid-column: 1 / -1; }
   .project-log h3 { margin: .3rem 0 0; min-height: 0; }
   .project-log > p { align-self: center; min-height: 0; }

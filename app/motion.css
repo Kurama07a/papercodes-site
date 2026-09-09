@@ -82,6 +82,26 @@ html:not([data-js="on"]) [data-reveal] {
   transform-origin: 62% 40%;
 }
 
+@keyframes pc-tear-settle {
+  from { opacity: .55; transform: translate3d(-2.5%, 0, 0) scale(1.025); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes pc-photo-develop {
+  from { filter: grayscale(1) contrast(1.45) brightness(.38); transform: scale(1.035); }
+  to { filter: grayscale(1) contrast(1.13) brightness(1); transform: scale(1); }
+}
+
+[data-js="on"] .case-hero__tear {
+  animation: pc-tear-settle 1050ms var(--ease-press) both;
+  transform-origin: 70% 45%;
+}
+
+[data-js="on"] .case-hero__photo {
+  animation: pc-photo-develop 1250ms var(--ease-press) both;
+}
+
+
 /* Scroll drift. `translate` is used deliberately so it composes with the
    static `transform: rotate(...)` the art direction sets on these layers. */
 [data-js="on"] .hero__engine-photo--structure {

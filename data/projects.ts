@@ -28,7 +28,7 @@ export const projectLogs: ProjectLog[] = [
     outcome: "A low-infrastructure network that normalizes uploads, discovers nearby shops, routes paid jobs in real time, and starts printing through shop-side software. The project reports reducing a 15–30 minute flow to roughly 3–5 minutes.",
     evidence: "Built core backend and realtime job-processing systems, connected the customer ordering flow, implemented shop onboarding and payment operations, and developed shop-side software that coordinated queues, printer state, and job status.",
     externalUrl: "https://zerofrictionprinting-btcky4c.gamma.site/",
-    image: "/images/work-ctrlp.png",
+    image: "/images/ctrlp-printshop-documentary-v2.png",
   },
   {
     id: "WRK_002",

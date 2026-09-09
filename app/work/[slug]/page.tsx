@@ -29,8 +29,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <a className="project-link project-link--dark" href={project.externalUrl} target="_blank" rel="noreferrer">View published overview <span aria-hidden="true">↗</span></a>
           </div>
           <figure className="case-hero__artifact">
-            <Image src="/images/work-ctrlp-printer.png" alt="Illustrative campus printer artwork from the published CtrlP project overview" fill sizes="(max-width: 900px) 100vw, 48vw" priority />
-            <figcaption>Illustrative artwork from the published overview—not product UI</figcaption>
+            {/* The frame is far taller than it is wide, so `cover` scales the source by its
+                height, not its width. Asking for the column width alone got a 792px file
+                blown up 1.9x; these values request enough source to fill the crop. */}
+            <Image className="case-hero__photo" src="/images/ctrlp-printshop-documentary-v2.png" alt="An operator handling printed sheets beside a production printer" fill sizes="(max-width: 900px) 210vw, 120vw" priority />
+            <Image className="case-hero__tear" src="/images/torn-divider.png" alt="" fill sizes="12rem" priority aria-hidden="true" />
+            <figcaption>Print shop operations / documentary reconstruction</figcaption>
           </figure>
         </header>
 
